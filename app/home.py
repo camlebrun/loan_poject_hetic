@@ -39,7 +39,7 @@ def main():
         st.header("Borrower Characteristics Analysis")
 
         # Sample loan data (replace this with your actual loan data)
-        data = pd.read_csv("/Users/camille/repo/Hetic/repo_M2/project_pred_mocel/cache/application_train.csv")
+        data = pd.read_csv("../cache/application_train.csv")
 
         # Initialize BorrowerCharacteristicsAnalyzer with loan data for borrower characteristics analysis
         analyzer = BorrowerCharacteristicsAnalyzer(data)
