@@ -1,10 +1,17 @@
 import pandas as pd
+import plotly.express as px
 
 class BorrowerCharacteristicsAnalyzer:
     def __init__(self, data):
+        if not isinstance(data, pd.DataFrame):
+            raise TypeError("Input data must be a pandas DataFrame.")
         self.data = data
 
     def calculate_default_rate(self, column, target_column='TARGET'):
+        if column not in self.data.columns:
+            raise ValueError(f"Column '{column}' not found in the DataFrame.")
+
+        # Calculate default rate (% of defaults) for each unique value in the column
         default_rates = self.data.groupby(column)[target_column].mean() * 100
         return default_rates
 
@@ -31,3 +38,18 @@ class BorrowerCharacteristicsAnalyzer:
                 worst_characteristics[column] = {'worst_category': worst_category, 'default_rate': worst_default_rate}
 
         return worst_characteristics
+
+    def plot_default_rates(self, column, target_column='TARGET'):
+        if self.data[column].dtype != 'object':
+            raise ValueError(f"Column '{column}' must be of type 'object' (categorical) for plotting.")
+
+        default_rates = self.calculate_default_rate(column, target_column)
+
+        # Create a Plotly bar chart for default rates
+        fig = px.bar(default_rates.reset_index(), x=column, y=target_column, 
+                     labels={column: column, target_column: 'Percentage of Defaults (%)'},
+                     title=f'Percentage of Defaults by {column}')
+        
+        fig.update_traces(marker_color='skyblue')  # Set bar color
+
+        return fig
