@@ -14,7 +14,7 @@ def main():
         st.header("Loan Approval Analysis")
 
         # Hardcoded path to the CSV file for Loan Approval Analysis
-        loan_csv_filename = "../data/application_train.csv"
+        loan_csv_filename = "data/application_train.csv"
 
         # Initialize LoanApprovalAnalyzer with loan data for loan approval analysis
         loan_analyzer = LoanApprovalAnalyzer(loan_csv_filename)
@@ -39,7 +39,7 @@ def main():
         st.header("Borrower Characteristics Analysis")
 
         # Sample loan data (replace this with your actual loan data)
-        data = pd.read_csv("../data/application_train.csv")
+        data = pd.read_csv("data/application_train.csv")
 
         # Initialize BorrowerCharacteristicsAnalyzer with loan data for borrower characteristics analysis
         analyzer = BorrowerCharacteristicsAnalyzer(data)
