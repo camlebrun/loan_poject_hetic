@@ -2,8 +2,10 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score
 import lightgbm as lgb
 import joblib
+import matplotlib.pyplot as plt
 
 # Load dataset
 df = pd.read_csv('/Users/camille/repo/Hetic/repo_M2/loan_project/data/application_train.csv')
@@ -73,3 +75,28 @@ joblib.dump(scaler, 'scaler.pkl')
 # Save column names used for scaling
 with open('column_names.pkl', 'wb') as f:
     joblib.dump(X.columns.tolist(), f)
+
+# Calculate ROC curve metrics
+prob_train = model.predict_proba(X_train_scaled)
+prob_test = model.predict_proba(X_test_scaled)
+
+# Calculate ROC curve
+fpr_train, tpr_train, _ = roc_curve(y_train, prob_train[:, 1])
+fpr_test, tpr_test, _ = roc_curve(y_test, prob_test[:, 1])
+
+# Plot ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr_train, tpr_train, label='Train')
+plt.plot(fpr_test, tpr_test, label='Test')
+plt.plot([0, 1], [0, 1], linestyle='--', label='Random Guess')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend()
+plt.show()
+
+# Calculate AUC score
+auc_score_train = roc_auc_score(y_train, prob_train[:, 1])
+auc_score_test = roc_auc_score(y_test, prob_test[:, 1])
+print("Train AUC:", auc_score_train)
+print("Test AUC:", auc_score_test)
