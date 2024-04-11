@@ -14,7 +14,7 @@ def main():
         st.header("Loan Approval Analysis")
 
         # Hardcoded path to the CSV file for Loan Approval Analysis
-        loan_csv_filename = "/Users/camille/repo/Hetic/repo_M2/project_pred_mocel/cache/application_train.csv"
+        loan_csv_filename = "./cache/application_train.csv"
 
         # Initialize LoanApprovalAnalyzer with loan data for loan approval analysis
         loan_analyzer = LoanApprovalAnalyzer(loan_csv_filename)
