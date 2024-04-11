@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 import plotly.express as px
 from BorrowerCharacteristicsAnalyzer import BorrowerCharacteristicsAnalyzer
 from LoanApprovalAnalyzer import LoanApprovalAnalyzer
@@ -13,11 +14,11 @@ def main():
     if analysis_type == "Loan Approval Analysis":
         st.header("Loan Approval Analysis")
 
-        # Hardcoded path to the CSV file for Loan Approval Analysis
-        loan_csv_filename = "https://github.com/camlebrun/loan_poject_hetic/blob/main/data/application_train.csv"
+        # Construct CSV file path
+        csv_file_path = os.path.join(os.getcwd(), 'data', 'application_train.csv')
 
         # Initialize LoanApprovalAnalyzer with loan data for loan approval analysis
-        loan_analyzer = LoanApprovalAnalyzer(loan_csv_filename)
+        loan_analyzer = LoanApprovalAnalyzer(csv_file_path)
 
         # Load loan data for loan approval analysis
         loan_data = loan_analyzer.load_data()
@@ -38,8 +39,9 @@ def main():
     elif analysis_type == "Borrower Characteristics Analysis":
         st.header("Borrower Characteristics Analysis")
 
-        # Sample loan data (replace this with your actual loan data)
-        data = pd.read_csv("data/application_train.csv")
+        # Load loan data for borrower characteristics analysis
+        csv_file_path = os.path.join(os.getcwd(), 'data', 'application_train.csv')
+        data = pd.read_csv(csv_file_path)
 
         # Initialize BorrowerCharacteristicsAnalyzer with loan data for borrower characteristics analysis
         analyzer = BorrowerCharacteristicsAnalyzer(data)
