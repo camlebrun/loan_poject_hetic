@@ -1,3 +1,8 @@
-streamlit
-pandas
-plotly
+streamlit 
+plotly 
+pandas 
+numpy 
+scikit-learn 
+lightgbm 
+joblib 
+matplotlib
