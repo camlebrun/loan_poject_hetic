@@ -80,5 +80,18 @@ def main():
         else:
             st.write('This customer is likely to repay the loan.')
 
+        # Show all outputs
+        st.write('Prediction Probability:', prediction[0])
+        st.write(f"Contract Type: {contract_type}")
+        st.write(f"Gender: {gender}")
+        st.write(f"Owns Car: {own_car}")
+        st.write(f"Owns Realty: {own_realty}")
+        st.write(f"Income Type: {income_type}")
+        st.write(f"Education: {education}")
+        st.write(f"Age: {age}")
+        st.write(f"Income: {income}")
+        st.write(f"Credit Amount: {credit_amount}")
+        st.write(f"Goods Price: {goods_price}")
+
 if __name__ == '__main__':
     main()
