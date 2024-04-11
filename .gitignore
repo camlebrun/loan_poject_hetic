@@ -1,4 +1,5 @@
 rec_vsnv
+rec_env
 cache
 *.pyc
 __pycache__/

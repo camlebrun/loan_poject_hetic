@@ -74,3 +74,4 @@ class LoanApprovalAnalyzer:
                      labels={'label': 'Loan Repayment Status'}, title='Loan Repayment Status')
 
         return fig
+

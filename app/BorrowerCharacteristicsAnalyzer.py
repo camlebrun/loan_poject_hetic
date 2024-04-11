@@ -53,3 +53,4 @@ class BorrowerCharacteristicsAnalyzer:
         fig.update_traces(marker_color='skyblue')  # Set bar color
 
         return fig
+
