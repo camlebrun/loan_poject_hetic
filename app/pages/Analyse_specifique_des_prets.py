@@ -1,37 +1,36 @@
-import os
 import pandas as pd
 import streamlit as st
 import plotly.express as px
-from scripts.BorrowerCharacteristicsAnalyzer import BorrowerCharacteristicsAnalyzer
-from scripts.LoanApprovalAnalyzer import LoanApprovalAnalyzer
+from scripts.LoanApprovalAnalyzer import LoanApprovalAnalyzer  # Adjust import based on your package structure
 
-# Chargement des données de prêt à partir du fichier CSV
-@st.cache_resource
+@st.cache
 def load_loan_data():
-    csv_file_path = os.path.join(os.getcwd(), 'data', 'application_train.csv')
+    csv_file_path = "data/application_train.csv"
     return pd.read_csv(csv_file_path)
 
 def main():
-    st.title("Analyse de l'Approbation des Prêts")
+    st.title("Loan Approval Analysis")
 
-    # Chargement des données de prêt
+    # Load loan data
     loan_data = load_loan_data()
 
-    # Sélection de la colonne pour l'analyse d'approbation de prêt
-    selected_loan_column = st.selectbox("Sélectionnez une variable pour l'analyse d'approbation de prêt", loan_data.columns)
+    # Select loan column for analysis
+    selected_loan_column = st.selectbox("Select a variable for loan approval analysis", loan_data.columns)
 
-    # Affichage des statistiques d'approbation de prêt
-    if st.button("Afficher les Statistiques d'Approbation de Prêt"):
+    # Display loan approval statistics
+    if st.button("Show Loan Approval Statistics"):
         try:
-            # Initialisation de l'analyseur LoanApprovalAnalyzer avec les données de prêt
+            # Initialize LoanApprovalAnalyzer with loan data
             analyzer = LoanApprovalAnalyzer(loan_data)
-            
-            # Tracé et affichage des statistiques d'approbation de prêt
-            fig_loan_approval_stats = analyzer.plot_loan_approval_stats(selected_loan_column)
+
+            # Plot and display loan approval statistics
+            fig_loan_approval_stats = analyzer.plot_loan_approval_stats(column=selected_loan_column)
             st.plotly_chart(fig_loan_approval_stats)
 
         except ValueError as e:
-            st.error(f"Erreur lors de l'affichage des statistiques : {str(e)}")
+            st.error(f"Error displaying statistics: {str(e)}")
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     main()

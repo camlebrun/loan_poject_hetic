@@ -17,27 +17,6 @@ fig_contract_type = px.pie(values=contract_type_counts.values,
                            title="Répartition des Types de Contrat de Prêt")
 st.plotly_chart(fig_contract_type)
 
-# Sélection de la variable pour l'analyse
-st.subheader("Analyse de l'Approbation de Prêt")
-selected_loan_column = st.selectbox("Choisissez une variable pour l'analyse", loan_data.columns)
-
-# Affichage des statistiques d'approbation de prêt
-if st.button("Afficher les Statistiques d'Approbation de Prêt"):
-    try:
-        # Affichage des statistiques
-        st.write(loan_data[selected_loan_column].describe())
-    except KeyError:
-        st.error("La variable sélectionnée est introuvable.")
-
-# Histogramme pour l'âge de tous les clients
-st.subheader("Répartition d'âge de tous les clients")
-fig_all_clients_age = px.histogram(x=loan_data['DAYS_BIRTH'] / -365,
-                                   nbins=20,
-                                   title="Âge des Clients à la Demande de Prêt",
-                                   labels={'x': 'Âge (années)', 'y': 'Nombre de Clients'},
-                                   color_discrete_sequence=['blue'])
-fig_all_clients_age.update_traces(hovertemplate="Âge: %{x}<br>Nombre de Clients: %{y}")
-st.plotly_chart(fig_all_clients_age)
 
 # Histogramme pour l'âge des clients capables
 st.subheader("Répartition d'âge des clients capables")
